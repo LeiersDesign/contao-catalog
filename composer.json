@@ -6,7 +6,7 @@
         "products"
     ],
     "type": "contao-bundle",
-	"version": "1.1.0",
+	"version": "1.1.1",
     "homepage": "https://www.leiers-design.de",
     "license": "MIT",
     "authors": [
