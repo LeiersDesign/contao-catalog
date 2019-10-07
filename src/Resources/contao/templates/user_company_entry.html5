@@ -1,0 +1,67 @@
+<div class="user-company">
+    <div class="company-left">
+        <h3><?= $this->name ?></h3>
+        <span class="company-zusatz"><?= $this->zusatz ?></span>
+        <div class="company-address">
+            <?php if((!$this->is_person) && (!$this->hide_contacts)): ?>
+            <i class="fa fa-fw fa-home" aria-hidden="true"></i>
+            <span><p><?= $this->strasse ?> <?= $this->hsnr ?><br>
+                    <?= $this->plz_ort ?></p></span>
+            <?php endif ?>
+        </div>
+        <?php if(($this->telefon) || ($this->telefax)): ?>
+        <div class="company-phones">
+            <div class="company-phone"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span><?= $this->telefon ?></span></div>
+            <div class="company-fax"><i class="fa fa-fw fa-fax" aria-hidden="true"></i><span><?= $this->telefax ?></span></div>
+        </div>
+        <?php endif ?>
+        <?php if(($this->mail) || ($this->web)): ?>
+        <div class="company-online">
+            <?php if($this->web): ?><div class="company-web"><i class="fa fa-fw fa-globe" aria-hidden="true"></i><span><a href="http://<?= $this->web ?>" target="_blank"><?= $this->web ?></a></span></div><?php endif ?>
+            <?php if($this->mail): ?><div class="company-mail"><i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i><span><a href="mailto:<?= $this->mail ?>"><?= $this->mail ?></a></span></div><?php endif ?>
+        </div>
+        <?php endif ?>
+    </div>
+    <div class="company-right">
+        <div class="company-logo">
+            <?= $this->logo ?>
+        </div>
+        <?php if(!empty($this->socials)): ?>
+        <div class="company-socials">
+            <?php foreach ($this->socials as $socialKey => $social): ?>
+            <div class="company-<?= $socialKey ?>">
+                <a href="http://<?= $social['link'] ?>" target="_blank" title="zur <?= $social['name'] ?>-Seite des Unternehmens"><i class="fa fa-<?= $social['icon'] ?>"></i></a>
+            </div>
+            <?php endforeach ?>
+        </div>
+        <?php endif ?>
+        <div class="company-branchen">
+            <span><?= ($this->branchen['count'] <= 1) ? $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['branchen'][0] : $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['branchen'][1] ?><?= $this->branchen['items'] ?></span>
+        </div>
+        <div class="company-kategorien">
+            <span><?= ($this->kategorien['count'] <= 1) ? $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['kategorien'][0] : $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['kategorien'][1] ?><?= $this->kategorien['items'] ?></span>
+        </div>
+    </div>
+    <div class="company-bottom">
+        <div class="manage-section">
+            <span class="manage-title"><?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['actions']['label'] ?></span>
+            <div class="company-edit">
+                <a href="<?= $this->editLink ?>" title="<?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['actions']['edit'] ?>"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+            </div>
+            <div class="company-toggle">
+                <a href="<?= $this->toggleLink ?>" title="<?= $this->togglePublish['text'] ?>"><i class="fa <?= $this->togglePublish['icon'] ?>" aria-hidden="true"></i></a>
+            </div>
+            <div class="company-preview">
+                <a target="_blank" href="<?= $this->detailLink ?>" title="<?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['actions']['preview'] ?>"><i class="fa fa-desktop" aria-hidden="true"></i></a>
+            </div>
+        </div>
+        <div class="alert-section">
+            <span class="manage-title"><?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['alerts']['label'] ?></span>
+            <div class="alerts">
+                <?php foreach($this->alerts as $alert): ?>
+                <span class="alert alert-<?= $alert['status'] ?>"><i class="fa fa-<?= $alert['icon'] ?>"></i><?= $alert['text'] ?></span>
+                <?php endforeach ?>
+            </div>
+        </div>
+    </div>
+</div>

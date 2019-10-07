@@ -1,0 +1,71 @@
+<div class="company-detail company-preview">
+    <div class="company-top">
+        <?= ($this->versioned == false ? $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['alerts']['is_versioned'][0] : $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['alerts']['is_versioned'][1]) ?>
+    </div>
+    <div class="company-section company-upper">
+        <div class="company-left">
+            <h3><?= $this->name ?></h3>
+            <span class="company-zusatz"><?= $this->zusatz ?></span>
+            <div class="company-address">
+                <?php if((!$this->is_person) && (!$this->hide_contacts)): ?>
+                <i class="fa fa-fw fa-home" aria-hidden="true"></i>
+                <span><p><?= $this->strasse ?> <?= $this->hsnr ?><br>
+                        <?= $this->plz_ort ?></p></span>
+                <?php endif ?>
+            </div>
+            <?php if(($this->telefon) || ($this->telefax)): ?>
+            <div class="company-phones">
+                <div class="company-phone"><i class="fa fa-fw fa-phone" aria-hidden="true"></i><span><?= $this->telefon ?></span></div>
+                <div class="company-fax"><i class="fa fa-fw fa-fax" aria-hidden="true"></i><span><?= $this->telefax ?></span></div>
+            </div>
+            <?php endif ?>
+            <?php if(($this->mail) || ($this->web)): ?>
+            <div class="company-online">
+                <?php if($this->web): ?><div class="company-web"><i class="fa fa-fw fa-globe" aria-hidden="true"></i><span><a href="http://<?= $this->web ?>" target="_blank"><?= $this->web ?></a></span></div><?php endif ?>
+                <?php if($this->mail): ?><div class="company-mail"><i class="fa fa-fw fa-envelope-o" aria-hidden="true"></i><span><a href="mailto:<?= $this->mail ?>"><?= $this->mail ?></a></span></div><?php endif ?>
+            </div>
+            <?php endif ?>
+        </div>
+        <div class="company-right">
+            <div class="company-logo">
+                <?= $this->logo ?>
+            </div>
+            <?php if(!empty($this->socials)): ?>
+            <div class="company-socials">
+                <?php foreach ($this->socials as $socialKey => $social): ?>
+                <div class="company-<?= $socialKey ?>">
+                    <a href="http://<?= $social['link'] ?>" target="_blank" title="zur <?= $social['name'] ?>-Seite des Unternehmens"><i class="fa fa-<?= $social['icon'] ?>"></i></a>
+                </div>
+                <?php endforeach ?>
+            </div>
+            <?php endif ?>
+            <div class="company-branchen">
+                <span><?= ($this->branchen['count'] <= 1) ? $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['branchen'][0] : $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['branchen'][1] ?><?= $this->branchen['items'] ?></span>
+            </div>
+            <div class="company-kategorien">
+                <span><?= ($this->kategorien['count'] <= 1) ? $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['kategorien'][0] : $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['labels']['kategorien'][1] ?><?= $this->kategorien['items'] ?></span>
+            </div>
+        </div>
+    </div>
+
+    <?php if(!empty($this->gallery)): ?>
+    <div class="company-section company-galerie">
+        <div class="galerie-wrapper">
+            <?php foreach($this->gallery as $image): ?>
+            <?= $image ?>
+            <?php endforeach ?>
+        </div>
+    </div>
+    <?php endif ?>
+    <?php if($this->beschreibung): ?>
+    <div class="company-section company-beschreibung">
+        <?= $this->beschreibung ?>
+    </div>
+    <?php endif ?>
+    <?php if($this->weg_beschreibung): ?>
+    <div class="company-section company-wegbeschreibung">
+        <h2>Ihr Weg zu uns</h2>
+        <?= $this->weg_beschreibung ?>
+    </div>
+    <?php endif ?>
+</div>

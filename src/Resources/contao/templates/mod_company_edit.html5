@@ -1,0 +1,45 @@
+<?php $this->extend('block_unsearchable'); ?>
+<?php $this->block('content'); ?>
+<?php if($this->fields != ''): ?>
+<form action="<?php echo $this->action; ?>" method="post" enctype="multipart/form-data" class="form-company">
+    <input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}">
+    <input type="hidden" name="FORM_SUBMIT" VALUE="EDIT_COMPANY"><?php echo $this->messages; ?>
+    <!--<input type="hidden" name="MAX_FILE_SIZE" value="<?= $this->maxFSize ?>">-->
+
+    <?php foreach ($this->fields as $objWidget): ?>
+    <?php if ($objWidget->type == 'upload'): ?>
+    <div class="widget widget-<?php echo $objWidget->type; ?> col-4 mt-5">
+        <div class="image-placeholder">
+            <?php if(isset($this->placeHolders[$objWidget->name])): ?>
+            <?= $this->placeHolders[$objWidget->name] ?>
+            <?php else: ?>
+            <?= $GLOBALS['TL_LANG']['market']['explanation']['noImageUploaded'] ?>
+            <?php endif ?>
+        </div>
+        <?php echo($objWidget->strLabel); ?>
+        <?php echo $objWidget->generateLabel() . ' ' . $objWidget->generateWithError(); ?>
+    </div>
+    <?php if($objWidget->name == 'company_logo'): ?>
+    <div class="col-12"></div>
+    <?php endif ?>
+    <?php else: ?>
+    <div class="widget widget-<?php echo $objWidget->type; ?>">
+        <?php echo($objWidget->strLabel); ?>
+        <?php echo $objWidget->generateLabel() . ' ' . $objWidget->generateWithError(); ?>
+    </div>
+    <?php endif ?>
+    <?php endforeach; ?>
+
+    <div class="catalog-form-submit-container">
+        <input type="submit" name="save_and_submit" class="submit" value="<?php echo $this->submit; ?>" />
+        <input type="submit" name="save" class="submit" value="<?php echo $this->submit; ?>" />
+        <a class="form-buton cancel-back" href="<?= $this->cancel ?>">Abbrechen & zurück</a>
+    </div>
+</form>
+<?php else: ?>
+<p><?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['results']['company_not_found'] ?></p>
+<?php endif ?>
+<?php $this->endblock(); ?>
+<script>
+    
+</script>

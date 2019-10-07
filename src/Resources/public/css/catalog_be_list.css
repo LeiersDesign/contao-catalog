@@ -1,0 +1,40 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/*
+    Created on : 05.09.2019, 13:32:26
+    Author     : leiers//DESIGN
+*/
+a.show {
+  margin-right: 15px; }
+  a.show img {
+    margin-right: 15px; }
+  a.show:after {
+    content: '||';
+    display: inline-block;
+    vertical-align: middle; }
+  a.show:hover {
+    color: inherit; }
+
+.version-differences {
+  display: block; }
+  .version-differences .row {
+    display: flex;
+    flex-wrap: nowrap; }
+    .version-differences .row.difference {
+      background-color: #feefee; }
+    .version-differences .row div {
+      padding: 10px; }
+      .version-differences .row div:nth-child(2) {
+        border-right: 1px solid #d0d0d2; }
+    .version-differences .row .col-name {
+      flex-basis: 20%;
+      flex-shrink: 0;
+      font-weight: bold;
+      border-right: 1px solid #d0d0d2; }
+    .version-differences .row div:not(.col-name) {
+      flex-basis: 40%; }
+    .version-differences .row:not(:last-of-type) {
+      border-bottom: 1px solid #d0d0d2; }

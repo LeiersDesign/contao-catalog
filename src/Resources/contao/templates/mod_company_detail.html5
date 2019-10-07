@@ -1,0 +1,8 @@
+<?php $this->extend('block_unsearchable'); ?>
+<?php $this->block('content'); ?>
+<?php if($this->result != ''): ?>
+    <?php echo $this->result; ?>
+<?php else: ?>
+    <p><?= $GLOBALS['TL_LANG']['MSC']['catalog']['FE']['no_company'] ?></p>
+<?php endif ?>
+<?php $this->endblock(); ?>
