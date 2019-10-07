@@ -23,8 +23,11 @@ class ListSingleCompany extends \ContentElement {
 
     public function generate() {
         if (TL_MODE === 'BE') {
+            $objCompanyResult = $this->Database->prepare("SELECT name FROM tl_firmen WHERE id = '$this->company_select'")->execute();
+            $arrCompany = $objCompanyResult->row();
+            
             $objTemplate = new \BackendTemplate('be_wildcard');
-            $objTemplate->wildcard = '### ' . sprintf($GLOBALS['TL_LANG']['MSC']['catalog']['modules']['list_single_company'], '123') . ' ###';
+            $objTemplate->wildcard = '### ' . sprintf($GLOBALS['TL_LANG']['MSC']['catalog']['modules']['list_single_company'], $arrCompany['name']) . ' ###';
             $objTemplate->title = $this->headline;
             $objTemplate->id = $this->id;
             $objTemplate->link = $this->name;

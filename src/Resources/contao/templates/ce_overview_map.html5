@@ -1,0 +1,50 @@
+<div class="<?= $this->class ?>" <?= $this->cssID ?>>
+    <?php if($this->headline): ?>
+        <<?php echo $this->hl; ?>><?php echo $this->headline; ?></<?php echo $this->hl; ?>>
+    <?php endif ?>
+    <div id="<?= $this->mapID ?>" style="width: <?= $this->width ?>; height: <?= $this->height ?>;">
+
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function(){
+        var overview_map_<?= $this->contentID ?> = new L.Map('<?= $this->mapID ?>', {
+            center: [<?= $this->map_center ?>],
+            zoom: <?= $this->map_zoom ?>,
+            zoomControl: true
+        });
+        
+        <?php if($this->map_disable_mouse_wheel_zoom): ?>
+            overview_map_<?= $this->contentID ?>.scrollWheelZoom.disable();
+        <?php endif ?>
+        
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            'attribution': 'Kartendaten &copy; <a target="_blank" href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> Mitwirkende'
+        }).addTo(overview_map_<?= $this->contentID ?>);
+        
+        <?php foreach($this->markers as $key => $marker): ?>
+            <?php
+                $popupContent = '<p><b>' . $marker['name'] . '</b><br> ' . $marker['strasse'] . ' ' . $marker['hsnr'] . '<br>' . $marker['plz_ort'] . '</p>';
+                
+                if($marker['telefon']) {
+                    $popupContent .= '<p>fon: ' . $marker['telefon'] . '</p>';
+                }
+                
+                if($marker['mail'] || $marker['web']) {
+                    $popupContent .= '<p>';
+                    if($marker['mail'] && $marker['web']) {
+                        $popupContent .= '<a href="' . $marker['web'] . '">' . $marker['web'] .'</a><br><a href="mailto:' . $marker['mail'] . '">' . $marker['mail'] . '</a>';
+                    } elseif($marker['mail'] && !$marker['web']) {
+                        $popupContent .= '<a href="mailto:' . $marker['mail'] . '">' . $marker['mail'] . '</a>';
+                    } elseif(!$marker['mail'] && $marker['web']) {
+                        $popupContent .= '<a href="' . $marker['web'] . '">' . $marker['web'] .'</a>';
+                    }
+                    $popupContent .= '</p>';
+                }
+                
+            ?>
+            var overview_map_<?= $this->contentID ?>_marker_$key = new L.Marker([<?= $marker['geo_coord'] ?>]).addTo(overview_map_<?= $this->contentID ?>);
+            overview_map_<?= $this->contentID ?>_marker_$key.bindPopup('<?= $popupContent ?>');
+        <?php endforeach ?>
+    });
+    </script>
+</div>

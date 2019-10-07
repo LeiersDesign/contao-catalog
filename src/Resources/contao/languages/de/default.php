@@ -62,6 +62,7 @@ $GLOBALS['TL_LANG']['MSC']['catalog']['modules']['company_edit'] = "Bearbeiten e
  * Content Elements
  */
 $GLOBALS['TL_LANG']['MSC']['catalog']['modules']['list_single_company'] = "Einzelner Eintrag: <b><i>%s</i></b>";
+$GLOBALS['TL_LANG']['MSC']['catalog']['modules']['overview_map'] = "Übersichtskarte";
 
 /**
  * Backend

@@ -75,6 +75,7 @@ $GLOBALS['FE_MOD']['catalog']['company_detail'] = 'LeiersDesign\ContaoCatalog\Mo
  * Frontend Elements
  */
 $GLOBALS['TL_CTE']['portal']['list_single_company'] = 'LeiersDesign\ContaoCatalog\Elements\ListSingleCompany';
+$GLOBALS['TL_CTE']['portal']['overview_map'] = 'LeiersDesign\ContaoCatalog\Elements\OverviewMap';
 
 /**
  * Hooks (Backend)

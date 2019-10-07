@@ -321,14 +321,14 @@ $GLOBALS['TL_DCA']['tl_firmen'] =
             'exclude' => true,
             'search' => false,
             'eval' => [
-                'maxlength' => 50,
+                'maxlength' => 100,
                 'tl_class' => 'w50',
                 'disabled' => false,
                 'doNotCopy' => true,
                 'rgxp' => 'url'
             ],
             'save_callback' => [['LeiersDesign\ContaoCatalog\Classes\BackendHelper', 'formatUrl']],
-            'sql' => "varchar(50) NOT NULL default ''"
+            'sql' => "varchar(100) NOT NULL default ''"
         ],
         'mail' => 
             [
@@ -435,7 +435,7 @@ $GLOBALS['TL_DCA']['tl_firmen'] =
             'search' => false,
             'eval' => [
                 'mandatory' => false,
-                'maxlength' => 2500,
+                'maxlength' => 5000,
                 'tl_class' => 'clr',
                 'rte' => 'tinyMCE'
             ],

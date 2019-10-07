@@ -22,6 +22,18 @@ class BackendHelper {
     public function __construct() {
         $this->dbCon = \Contao\System::getContainer()->get('database_connection');
     }
+    
+    public function geoCoordSaveCallback($varValue, DataContainer $dc) {
+        if($varValue != NULL || $varValue == ',') {
+            return $varValue;
+        }
+        
+        if(!$dc->activeRecord->map_center_address) {
+            return ',';
+        }
+        
+        return $this->curlGeoCoords($dc->activeRecord->map_center_address);
+    }
 
     /**
      * 
@@ -94,6 +106,50 @@ class BackendHelper {
         }
         
         return $strReturn;
+    }
+    
+    /**
+     * 
+     * @param string $address
+     * @return string
+     */
+    private function curlGeoCoords($address) {
+        
+        if(!$address) {
+            //Koordinaten von Hochwalderstraße 17, 47661 Issum
+            return "51.5447907,6.45575634151786";
+        }
+
+        $strAddress = urlencode($address);
+        
+        $quersString = "https://nominatim.openstreetmap.org/search?q={$strAddress}&format=json";
+
+        $userAgent = $_SERVER['HTTP_USER_AGENT'];
+
+        // Create a stream
+        $opts = [
+            'http' => [
+                'header' => "User-Agent: $userAgent\r\n"
+            ]
+        ];
+
+        $context = stream_context_create($opts);
+
+        // Open the file using the HTTP headers set above
+        $jsonFile = file_get_contents($quersString, false, $context);
+
+        $resp = json_decode($jsonFile, true);
+
+        if (empty($resp)) {
+            //Koordinaten von Hochwalderstraße 17, 47661 Issum
+            return "51.5447907,6.45575634151786";
+        } else {
+            $lat = $resp[0]['lat'];
+            $lon = $resp[0]['lon'];
+            $coordinates = "$lat,$lon";
+        }
+
+        return $coordinates;
     }
 
 }
