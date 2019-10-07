@@ -45,6 +45,18 @@
             var overview_map_<?= $this->contentID ?>_marker_$key = new L.Marker([<?= $marker['geo_coord'] ?>]).addTo(overview_map_<?= $this->contentID ?>);
             overview_map_<?= $this->contentID ?>_marker_$key.bindPopup('<?= $popupContent ?>');
         <?php endforeach ?>
+        
+        <?php if($this->layers): ?>
+            var overview_map_<?= $this->contentID ?>_layer_group = new L.FeatureGroup();
+            <?php foreach($this->layers as $key => $layer): ?>
+                <?php if($layer['ext'] == 'kml'): ?>
+                    var overview_map_<?= $this->contentID ?>_layer_<?= $key ?> = omnivore.kml('<?= $layer['path'] ?>').addTo(overview_map_<?= $this->contentID ?>_layer_group);
+                <?php elseif($layer['gpx'] == 'kml'): ?>
+                    var overview_map_<?= $this->contentID ?>_layer_<?= $key ?> = omnivore.gpx('<?= $layer['path'] ?>').addTo(overview_map_<?= $this->contentID ?>_layer_group);
+                <?php endif ?>
+            <?php endforeach ?>
+            overview_map_<?= $this->contentID ?>_layer_group.addTo(overview_map_<?= $this->contentID ?>);
+        <?php endif ?>
     });
     </script>
 </div>
